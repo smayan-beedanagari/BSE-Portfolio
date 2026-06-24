@@ -51,13 +51,15 @@ For your first milestone, describe what your project is and how you plan to buil
 
 **Don't forget to replace the text below with the embedding for your milestone video. Go to Youtube, click Share -> Embed, and copy and paste the code to replace what's below.**
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/CaCazFBhYKs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HAAt5699cr8?si=zl0xKakzv0PGoQiR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-For your first milestone, describe what your project is and how you plan to build it. You can include:
-- An explanation about the different components of your project and how they will all integrate together
-- Technical progress you've made so far
-- Challenges you're facing and solving in your future milestones
-- What your plan is to complete your project
+Project Description: I built a handheld retro arcade console featuring an 8x16 LED matrix screen, a 3-digit score display, and a 7-button control layout. It runs five different games and saves high scores automatically.
+
+Technical Progress: All components are fully assembled, soldered, and operational. The games load, accept button inputs, and track scores correctly.
+
+Challenges & Solutions: The biggest hurdle was the steep learning curve of soldering so many dense connections. My first attempts were rough, but through patience and practice, my technique drastically improved.
+
+Future Plan: I am now moving on to my intensive project: building a physical flight simulator chassis using PVC pipes, a 4-string suspension rig, and integrating my joystick and continuous motors.
 
 # Schematics 
 Here's where you'll put images of your schematics. [Tinkercad](https://www.tinkercad.com/blog/official-guide-to-tinkercad-circuits) and [Fritzing](https://fritzing.org/learning/) are both great resoruces to create professional schematic diagrams, though BSE recommends Tinkercad becuase it can be done easily and for free in the browser. 
