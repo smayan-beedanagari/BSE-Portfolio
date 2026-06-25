@@ -49,7 +49,7 @@ For your first milestone, describe what your project is and how you plan to buil
 - What your plan is to complete your project
 -->
 
-- # Starter Milestone
+# Starter Milestone
 
 **Don't forget to replace the text below with the embedding for your milestone video. Go to Youtube, click Share -> Embed, and copy and paste the code to replace what's below.**
 
