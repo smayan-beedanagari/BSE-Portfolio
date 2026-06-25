@@ -73,10 +73,118 @@ Here's where you'll put your code. The syntax below places it into a block of co
 -->
 
 ```c++
+#include <Servo.h>
+
+Servo motor1; // Front-Left (Pin 9)
+Servo motor2; // Front-Right (Pin 10)
+Servo motor3; // Back-Left (Pin 12)
+Servo motor4; // Back-Right (Pin 13)
+
+// Joystick Pins
+const int pinJoy1X = A0; 
+const int pinJoy1Y = A1; 
+const int pinJoy2X = A2; 
+const int pinJoy2Y = A3; 
+
+// Button Pins for Z-Axis (Altitude Speed)
+const int pinBtnUp = 2;   
+const int pinBtnDown = 3; 
+
 void setup() {
-  // put your setup code here, to run once:
   Serial.begin(9600);
-  Serial.println("Hello World!");
+  motor1.attach(9);
+  motor2.attach(10);
+  motor3.attach(12);
+  motor4.attach(13);
+
+  // Set as regular INPUT. Assumes buttons connect to 5V when pressed
+  // with a 10k ohm pull-down resistor to GND on pins 2 and 3.
+  pinMode(pinBtnUp, INPUT);
+  pinMode(pinBtnDown, INPUT);
+
+  // Force stop on startup
+  motor1.write(90);
+  motor2.write(90);
+  motor3.write(90);
+  motor4.write(90);
+}
+
+void loop() {
+  // Read raw inputs from both joysticks (0 to 1023)
+  int raw1X = analogRead(pinJoy1X);
+  int raw1Y = analogRead(pinJoy1Y);
+  int raw2X = analogRead(pinJoy2X);
+  int raw2Y = analogRead(pinJoy2Y);
+
+  // Read button states (1 = Pressed, 0 = Released)
+  int btnUpState = digitalRead(pinBtnUp);
+  int btnDownState = digitalRead(pinBtnDown);
+
+  // Variables to hold final movement speeds
+  int moveY  = 0;
+  int strafe = 0;
+  int yaw    = 0;
+  int pitch  = 0;
+  int lift   = 0; 
+
+  // --- BUTTON LIFT SPEED CONTROL ---
+  // Raised speed to 60 for strong, fast vertical movement
+  if (btnUpState == HIGH) {
+    lift = 60;  
+  } 
+  else if (btnDownState == HIGH) {
+    lift = -60; 
+  }
+
+  // --- WIDER HARD DEADZONES ---
+  // Raised mapping max to 60 so your joysticks have strong power too
+  if (raw1Y >= 640) moveY = map(raw1Y, 640, 1023, 0, 60);
+  else if (raw1Y <= 560) moveY = map(raw1Y, 0, 560, -60, 0);
+
+  if (raw1X >= 650) strafe = map(raw1X, 650, 1023, 0, 60);
+  else if (raw1X <= 570) strafe = map(raw1X, 0, 570, -60, 0);
+
+  if (raw2Y >= 640) pitch = map(raw2Y, 640, 1023, 0, 60);
+  else if (raw2Y <= 560) pitch = map(raw2Y, 0, 560, -60, 0);
+
+  if (raw2X >= 650) yaw = map(raw2X, 650, 1023, 0, 60);
+  else if (raw2X <= 570) yaw = map(raw2X, 0, 570, -60, 0);
+
+  // --- THE FLIGHT MIXER MATH ---
+  int s1 = 90 + moveY + strafe + pitch + yaw + lift; // Front-Left
+  int s2 = 90 + moveY - strafe + pitch - yaw + lift; // Front-Right
+  int s3 = 90 + moveY + strafe - pitch - yaw + lift; // Back-Left
+  int s4 = 90 + moveY - strafe - pitch + yaw + lift; // Back-Right
+
+  // Constrain to safe servo limits (0 to 180)
+  s1 = constrain(s1, 0, 180);
+  s2 = constrain(s2, 0, 180);
+  s3 = constrain(s3, 0, 180);
+  s4 = constrain(s4, 0, 180);
+
+  // --- DISPLAY RAW VALUES AND SERVO OUTPUTS ---
+  Serial.print("J1X:"); Serial.print(raw1X); Serial.print(" ");
+  Serial.print("J1Y:"); Serial.print(raw1Y); Serial.print(" ");
+  Serial.print("J2X:"); Serial.print(raw2X); Serial.print(" ");
+  Serial.print("J2Y:"); Serial.print(raw2Y); Serial.print(" ");
+  Serial.print("U:"); Serial.print(btnUpState); Serial.print(" ");
+  Serial.print("D:"); Serial.print(btnDownState); Serial.print(" | ");
+  
+  Serial.print("M1:"); Serial.print(s1); Serial.print(" ");
+  Serial.print("M2:"); Serial.print(s2); Serial.print(" ");
+  Serial.print("M3:"); Serial.print(s3); Serial.print(" ");
+  Serial.print("M4:"); Serial.println(s4);
+
+  // Write commands to the continuous rotation servos
+  motor1.write(s1);
+  delay(2);
+  motor2.write(s2);
+  delay(2);
+  motor3.write(s3);
+  delay(2);
+  motor4.write(s4);
+
+  delay(40); 
 }
 
 void loop() {
