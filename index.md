@@ -1,5 +1,5 @@
-# Retro Arcade Game
-For my starter project, I constructed a handheld retro arcade console utilizing an STC microcontroller integrated with an 8x16 LED matrix, a 3-digit score display, and tactile control buttons. My development focused primarily on programming Game 3, a fast-paced lane-dodging racing game that relies on matrix multiplexing to dynamically update graphics and track high scores. Completing this project required overcoming significant engineering hurdles, including precision soldering of high-density microchip pins and optimizing code logic to eliminate gameplay latency.
+# Fight Motion Sim
+This project integrates an Arduino microcontroller, a 2-axis joystick, and multiple continuous servos to translate hand inputs into real-time physical flight movements via a 4-string suspension rig. The primary challenge was severe voltage sag and random motor spinning caused by drawing too much current from the Arduino's 5V pin, which repeatedly crashed the USB port connection. I learned that high-current motors require an isolated external battery pack, a shared common ground wire with the Arduino to stabilize control signals, and staggered code delays to prevent power spikes.
 
 | **Engineer** | **School** | **Area of Interest** | **Grade** |
 |:--:|:--:|:--:|:--:|
