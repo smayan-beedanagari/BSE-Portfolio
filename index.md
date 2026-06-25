@@ -199,7 +199,7 @@ Don't forget to place the link of where to buy each component inside the quotati
 
 | **Part** | **Note** | **Price** | **Link** |
 |:--:|:--:|:--:|:--:|
-| Item Name | What the item is used for | $Price | <a href="https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6/"> Link </a> |
+| Arduino Uno R3 | Motherboard of the Flight Sim | $49 | <a href="[https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6/](https://store-usa.arduino.cc/products/uno-q-4gb?utm_source=google&utm_medium=cpc&utm_campaign=US-Pmax-Promo-UNOQ&gad_source=4&gad_campaignid=23949316248&gbraid=0AAAAACbEa84VuBlStXMRnLnVjRm0AkVPi&gclid=Cj0KCQjwo_PRBhDNARIsAEcVALUivuxEE-o1Mw77WlOxLyeZLmHbGiXBh5vLvHzij_ToqQfj5GiRdhMaAu6QEALw_wcB)"> Link </a> |
 | Item Name | What the item is used for | $Price | <a href="https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6/"> Link </a> |
 | Item Name | What the item is used for | $Price | <a href="https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6/"> Link </a> |
 
