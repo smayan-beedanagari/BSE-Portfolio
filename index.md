@@ -52,7 +52,7 @@ The core electronics and basic flight logic are fully operational. The four serv
 
   -**Chassis Balance:** Uneven weight distribution on the PVC frame can cause unwanted twisting, which I will fix by adding physical counterweights.
 
-### Future Plan to Completion
+### Next Steps
   -**Milestone 2:** Attach the lines to the servos and calibrate structural movements to match the joystick inputs, and add in the second joystick and altitude buttons for full Z-axis
 
   -**Milestone 3:** Assemble the 4-string suspension rig and hang the cockpit chassis to complete the project
@@ -78,9 +78,9 @@ Now that the arcade console is complete, I'm moving on to my intensive project: 
 
   -**The Frame:** Assembling a rigid, lightweight cockpit structure out of PVC pipes.
 
-  -**The Rigging:** Setting up a custom 4-string suspension rig to handle motion physics.
+  -**The Rigging:** Setting up a custom 4-string  rig to handle motion physics.
 
-  -**Controls & Automation:** Integrating my flight joystick and wiring up continuous motors to turn digital in-game movements into physical feedback.
+  -**Controls & Automation:** Figuring out wether buttons, potentiometers, or even joysticks are the way to go in terms of controls, and when selected integrating that control into the breadboard
 
 <br>
 
