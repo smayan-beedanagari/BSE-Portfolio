@@ -8,10 +8,9 @@ This project integrates an Arduino microcontroller, a 2-axis joystick, and multi
 **Replace the BlueStamp logo below with an image of yourself and your completed project. Follow the guide [here](https://tomcam.github.io/least-github-pages/adding-images-github-pages-site.html) if you need help.**
 
 ![Headstone Image](logo.svg)
-<!--  
+
 # Final Milestone
 
-**Don't forget to replace the text below with the embedding for your milestone video. Go to Youtube, click Share -> Embed, and copy and paste the code to replace what's below.**
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/F7M7imOVGug" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
@@ -25,7 +24,6 @@ For your final milestone, explain the outcome of your project. Key details to in
 
 # Second Milestone
 
-**Don't forget to replace the text below with the embedding for your milestone video. Go to Youtube, click Share -> Embed, and copy and paste the code to replace what's below.**
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/y3VAmNlER5Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
@@ -37,17 +35,16 @@ For your second milestone, explain what you've worked on since your previous mil
 
 # First Milestone
 
-**Don't forget to replace the text below with the embedding for your milestone video. Go to Youtube, click Share -> Embed, and copy and paste the code to replace what's below.**
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/CaCazFBhYKs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-My project currently has 4 servos mounted onto the pvc frame and 1 joystick that controls the 4 servos to spin
+My project currently has 4 servos mounted onto the pvc frame and 1 joystick that controls the 4 servos to spin based on what would theoretcally move the entire spacecraft forward, backward, left, and right on the x and y axis only. 
 For your first milestone, describe what your project is and how you plan to build it. You can include:
 - An explanation about the different components of your project and how they will all integrate together
 - Technical progress you've made so far
 - Challenges you're facing and solving in your future milestones
 - What your plan is to complete your project
--->
+
 
 # Starter Milestone
 
@@ -55,13 +52,25 @@ For your first milestone, describe what your project is and how you plan to buil
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/HAAt5699cr8?si=lJUN_Jn4P_0Znk9a" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-Project Description: I built a handheld retro arcade console featuring an 8x16 LED matrix screen, a 3-digit score display, and a 7-button control layout. It runs five different games and saves high scores automatically.
+Project Overview
+I designed and built a handheld retro arcade console from scratch. The hardware features an 8x16 LED matrix screen for visuals, a 3-digit display for real-time score tracking, and a 7-button layout for the controls. On the software side, the console runs five different playable games and includes an automated save system that keeps track of high scores even after the device is turned off.
 
-Technical Progress: All components are fully assembled, soldered, and operational. The games load, accept button inputs, and track scores correctly.
+Technical Progress
+The console is fully assembled, soldered, and 100% operational. During testing, everything booted up smoothly—the games load without errors, the buttons feel responsive with zero noticeable lag, and the high-score memory system tracks and saves data exactly as planned.
 
-Challenges & Solutions: The biggest hurdle was the steep learning curve of soldering so many dense connections. My first attempts were rough, but through patience and practice, my technique drastically improved.
+Challenges & Solutions
+The biggest hurdle was definitely the soldering. Dealing with so many dense, closely packed connections on a compact board was incredibly frustrating at first. My early attempts were messy and risked shorting out the components. To fix this, I took a step back, practiced my wire management, and learned how to better regulate the iron's heat. With some patience, my technique drastically improved, and I was able to finish the rest of the board with clean, solid joints.
 
-Future Plan: I am now moving on to my intensive project: building a physical flight simulator chassis using PVC pipes, a 4-string suspension rig, and integrating my joystick and continuous motors.
+Future Plan: Flight Simulator Chassis
+Now that the arcade console is complete, I'm moving on to my intensive project: building a physical flight simulator chassis.
+
+The next steps involve:
+
+  -The Frame: Assembling a rigid, lightweight cockpit structure out of PVC pipes.
+
+  -The Rigging: Setting up a custom 4-string suspension rig to handle motion physics.
+
+  -Controls & Automation: Integrating my flight joystick and wiring up continuous motors to turn digital in-game movements into physical feedback.
 
 <!--
 # Schematics 
