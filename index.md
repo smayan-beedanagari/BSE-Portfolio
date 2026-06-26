@@ -80,6 +80,7 @@ Here's where you'll put images of your schematics. [Tinkercad](https://www.tinke
 
 This Arduino program runs a 4-motor flight simulator rig by mixing joystick and button inputs. It filters out hardware jitters using custom deadzones, combines your movements (pitch, roll, yaw, and lift) mathematically, and outputs the final speeds to four continuous servos.
 
+<br>
 
 ### System Initialization and Pin Mapping
 
