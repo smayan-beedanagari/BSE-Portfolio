@@ -1,4 +1,4 @@
-# Fight Motion Sim
+# 4DoF Motion Flight Simulator 
 This project integrates an Arduino microcontroller, a 2-axis joystick, and multiple continuous servos to translate hand inputs into real-time physical flight movements via a 4-string suspension rig. The primary challenge was severe voltage sag and random motor spinning caused by drawing too much current from the Arduino's 5V pin, which repeatedly crashed the USB port connection. I learned that high-current motors require an isolated external battery pack, a shared common ground wire with the Arduino to stabilize control signals, and staggered code delays to prevent power spikes.
 
 | **Engineer** | **School** | **Area of Interest** | **Grade** |
