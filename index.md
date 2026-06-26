@@ -226,5 +226,5 @@ This final section outputs all raw inputs and motor speeds to your computer scre
 | **Part** | **Note** | **Price** | **Link** |
 |:--:|:--:|:--:|:--:|
 | Arduino Uno R3 | Motherboard of the Flight Sim | $49 | <a href="https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6/"> Link </a> |
-| Item Name | What the item is used for | $Price | <a href="https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6/"> Link </a> |
+| Continuous Rotation Servos | Pulls or Loosens String on Flight Sim | $Price | <a href="[https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6](https://www.amazon.com/FEETECH-5packs-Degree-Continuous-Plastic/dp/B0BCPVNDCD/ref=sr_1_4_sspa?dib=eyJ2IjoiMSJ9.v2-5yoJaqXD5aUYMI-IyHjnvyu20ueTJh6lm2WGPHk6LJt5GWOR7kyizzMQrG3lN0fXjN64ensKqLqfWWqJDWjWJXJIRuJt6iBmWFWFdXfGf8RB9DTPLlylK41-4n0DZr08w-ZQfAAa4wwVhqv0JjLdVohLNtg9ZL7AiocYp4t0PVtqflO60D93HWMQ83yYuKnrayixzv-W1c_RShZFkXb7hDmQCSW7ITSgVNx2BB2KkzIAJ5Prkbfd81q6tGiCDlcWKkyNR2JDqTWvZzX_HlzYPB453GJICWugtAgjpVC8.XUoT9KpE-JJjNOfkB1dRPFISHYX-4ld4XiH0vIxBv_U&dib_tag=se&keywords=continuous%2Brotation%2Bservoqid=1782452005sr=8-4-sponssp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1)/"> Link </a> |
 | Item Name | What the item is used for | $Price | <a href="https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6/"> Link </a> |
