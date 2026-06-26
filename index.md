@@ -39,13 +39,23 @@ For your second milestone, explain what you've worked on since your previous mil
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/CaCazFBhYKs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-My project currently has 4 servos mounted onto the pvc frame and 1 joystick that controls the 4 servos to spin based on what would theoretcally move the entire spacecraft forward, backward, left, and right on the x and y axis only. 
-For your first milestone, describe what your project is and how you plan to build it. You can include:
-- An explanation about the different components of your project and how they will all integrate together
-- Technical progress you've made so far
-- Challenges you're facing and solving in your future milestones
-- What your plan is to complete your project
+### Project Overview
+This project is a physical flight simulator chassis built from PVC pipes and a 4-string suspension rig. It integrates an Arduino, a joystick, and four continuous-rotation servos to simulate physical flight motion. Moving the joystick sends X and Y signals to the Arduino, which calculates and spins the servos to physically tilt or pull the suspended cockpit forward, backward, left, or right.
 
+### Technical Progress
+The core electronics and basic flight logic are fully operational. The four servos are securely mounted to the PVC frame, and a single joystick is wired and functioning. The software successfully processes the vector mixing, meaning a joystick input accurately commands the specific combination of servos needed to move the rig.
+
+### Challenges & Solutions
+  -**Mechanical Tension:** Continuous servos pulling strings will definitively slack or erratic shaking during sudden joystick inputs.
+
+  -**Software Smoothing:** I'm solving this by widening the deadzones and smoothing out the motor acceleration profiles in the code.
+
+  -**Chassis Balance:** Uneven weight distribution on the PVC frame can cause unwanted twisting, which I will fix by adding physical counterweights.
+
+### Future Plan to Completion
+  -**Milestone 2:** Attach the lines to the servos and calibrate structural movements to match the joystick inputs, and add in the second joystick and altitude buttons for full Z-axis
+
+  -**Milestone 3:** Assemble the 4-string suspension rig and hang the cockpit chassis to complete the project
 <br>
 
 # Starter Milestone
