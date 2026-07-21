@@ -37,7 +37,7 @@ For your second milestone, explain what you've worked on since your previous mil
 # First Milestone
 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/CaCazFBhYKs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/moCCDCpR0_c?si=OevAo0dc6RMtJR8k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ### Project Overview
 This project is a physical flight simulator chassis built from PVC pipes and a 4-string suspension rig. It integrates an Arduino, a joystick, and four continuous-rotation servos to simulate physical flight motion. Moving the joystick sends X and Y signals to the Arduino, which calculates and spins the servos to physically tilt or pull the suspended cockpit forward, backward, left, or right.
