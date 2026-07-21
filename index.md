@@ -1,5 +1,6 @@
 # 4DoF Motion Flight Simulator 
 This project integrates an Arduino microcontroller, two sepereate 2-axis joystick, and multiple continuous servos to translate analog inputs into real-time physical flight movements via a 4-string suspension rig. The primary challenge was severe voltage sag and random motor spinning caused by drawing too much current from the Arduino's 5V pin, which repeatedly crashed the USB port connection. I learned that wire magament is essential to the suceess of ones own project as it makes way for ease of debugging. I also leanred that while some things may work or seem perfect on paper, they can actually be screwed up during real physical tests, no mater how prepared you are.
+
 | **Engineer** | **School** | **Area of Interest** | **Grade** |
 |:--:|:--:|:--:|:--:|
 | Smayan Beedanagari | Dougherty Valley High School | Aerospace Engineering | Incoming Sophmore
