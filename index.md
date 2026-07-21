@@ -26,11 +26,24 @@ For your final milestone, explain the outcome of your project. Key details to in
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/y3VAmNlER5Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-For your second milestone, explain what you've worked on since your previous milestone. You can highlight:
-- Technical details of what you've accomplished and how they contribute to the final goal
-- What has been surprising about the project so far
-- Previous challenges you faced that you overcame
-- What needs to be completed before your final milestone 
+### Project Overview
+This phase focuses on the complete physical assembly and full multi-axis integration of the flight simulator. The suspended cockpit is hung from the PVC frame using the 4-string suspension rig, while the software expands to handle 6-DOF (degree of freedom) flight dynamics. Adding a second joystick and dedicated altitude buttons enables full physical tilt, pitch, roll, and vertical lift across the X, Y, and Z axes.
+
+### Technical Progress
+The 4-string suspension rig is fully assembled, and the cockpit chassis is successfully suspended within the PVC frame. The control system has been upgraded to include the second joystick and altitude buttons. Lines are routed from the continuous servos to the central rig, and the software flight mixer now calculates outputs for combined 3D motion and elevation control.
+
+### Challenges & Solutions
+  -**Multi-Axis Mixing:** Combining pitch, roll, yaw, and vertical lift into single motor commands caused servos to hit software limits.
+
+  -**Range Constraining:** I'm solving this by widening the deadzones and smoothing out the motor acceleration profiles in the code.
+
+  -**Line Sag & Calibration:** Uneven weight distribution on the PVC frame can cause unwanted twisting, which I'll fix by adding physical counterweights.
+
+### Next Steps
+  -**System Testing:**  ine-tune the PVC counterweights to ensure the cockpit centers automatically when joysticks are released.
+
+
+  -**Final Mechanical Calibration::** Assemble the 4-string suspension rig and hang the cockpit chassis to complete the project
 
 <br>
 
