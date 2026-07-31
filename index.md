@@ -112,7 +112,7 @@ Here's where you'll put images of your schematics. [Tinkercad](https://www.tinke
 
 # Code
 
-This Arduino program runs a 4-motor flight simulator rig by mixing joystick and button inputs. It filters out hardware jitters using custom deadzones, combines your movements (pitch, roll, yaw, and lift) mathematically, and outputs the final speeds to four continuous servos.
+This Arduino program runs a 3-motor flight simulator rig by mixing joystick and button inputs. It filters out hardware jitters using custom deadzones, combines your movements (pitch, roll, yaw, and lift) mathematically, and outputs the final speeds to four continuous servos.
 
 ### System Initialization and Pin Mapping
 
@@ -121,132 +121,235 @@ This section maps your physical hardware connections to specific Arduino pins an
 
 ```c++
 #include <Servo.h>
+#include <Wire.h>
 
-Servo motor1; // Front-Left (Pin 9)
-Servo motor2; // Front-Right (Pin 10)
-Servo motor3; // Back-Left (Pin 12)
-Servo motor4; // Back-Right (Pin 13)
+Servo servo3;
+Servo servo4;
+Servo servo5;
 
-// Joystick Pins
-const int pinJoy1X = A0; 
-const int pinJoy1Y = A1; 
-const int pinJoy2X = A2; 
-const int pinJoy2Y = A3; 
+const int pin3 = 3;
+const int pin4 = 4;
+const int pin5 = 5;
 
-// Button Pins for Z-Axis (Altitude Speed)
-const int pinBtnUp = 2;   
-const int pinBtnDown = 3; 
+const int PIN_VRX = A0;      // Joystick 1 Up / Down
+const int PIN_VRY = A1;      // Joystick 1 Left / Right vector slide
 
+// Button Mapping
+const int PIN_BTN8  = 8;     // Motor 4 Clockwise
+const int PIN_BTN9  = 9;     // Motor 4 Counter-Clockwise
+const int PIN_BTN10 = 10;    // Motor 5 Clockwise
+const int PIN_BTN11 = 11;    // Motor 5 Counter-Clockwise
+const int PIN_BTN12 = 12;    // Motor 3 Clockwise
+const int PIN_BTN13 = 13;    // Motor 3 Counter-Clockwise
+
+const int STOP_VAL = 90;
+const int DEADZONE = 120;
+const int SPEED_VAL = 140;  
+
+// MPU6050 I2C Address
+const int MPU_addr = 0x68; 
+int16_t AcX, AcY, AcZ, Tmp, GyX, GyY, GyZ;
+
+// Calibration offsets
+int offsetX = 0;
+int offsetY = 0;
+int offsetZ = 0;
+
+// Filtered / smoothed telemetry variables to stop jitter
+float smoothX = 0;
+float smoothY = 0;
+float smoothZ = 0;
+```
+
+### Setup Function void(setup)
+
+The setup runs once when the microcontroller turns on. It initializes communication, configures pin modes, attaches servos, and calibrates the MPU6050 sensor.
+```c++
 void setup() {
   Serial.begin(9600);
-  motor1.attach(9);
-  motor2.attach(10);
-  motor3.attach(12);
-  motor4.attach(13);
+  delay(1000);
 
-  // Set as regular INPUT. Assumes buttons connect to 5V when pressed
-  // with a 10k ohm pull-down resistor to GND on pins 2 and 3.
-  pinMode(pinBtnUp, INPUT);
-  pinMode(pinBtnDown, INPUT);
+  Serial.print("hello it is working");
 
-  // Force stop on startup
-  motor1.write(90);
-  motor2.write(90);
-  motor3.write(90);
-  motor4.write(90);
+  // Initialize I2C and wake up the MPU6050
+  Wire.begin();
+  Wire.beginTransmission(MPU_addr);
+  Wire.write(0x6B);  // PWR_MGMT_1 register
+  Wire.write(0);     // Wake up MPU-6050
+  Wire.endTransmission(true);
+
+  // Configure digital button pins using internal pull-up resistors
+  pinMode(PIN_BTN8, INPUT_PULLUP);
+  pinMode(PIN_BTN9, INPUT_PULLUP);
+  pinMode(PIN_BTN10, INPUT_PULLUP);
+  pinMode(PIN_BTN11, INPUT_PULLUP);
+  pinMode(PIN_BTN12, INPUT_PULLUP);
+  pinMode(PIN_BTN13, INPUT_PULLUP);
+
+  // Attach servos and command them to stay stationary at startup
+  servo3.attach(pin3);
+  servo4.attach(pin4);
+  servo5.attach(pin5);
+
+  servo3.write(STOP_VAL);
+  servo4.write(STOP_VAL);
+  servo5.write(STOP_VAL);
+
+  // Quick calibration read on startup (keep it flat!)
+  delay(500);
+  long sumX = 0, sumY = 0, sumZ = 0;
+  for (int i = 0; i < 50; i++) {
+    Wire.beginTransmission(MPU_addr);
+    Wire.write(0x3B);  
+    Wire.endTransmission(false);
+    Wire.requestFrom(MPU_addr, 6, true); 
+    sumX += (int16_t)(Wire.read() << 8 | Wire.read());
+    sumY += (int16_t)(Wire.read() << 8 | Wire.read());
+    sumZ += (int16_t)(Wire.read() << 8 | Wire.read());
+    delay(10);
+  }
+  offsetX = sumX / 50;
+  offsetY = sumY / 50;
+  offsetZ = (sumZ / 50) - 16384; 
+  
+  Serial.println("System Initialized: Compact Single-Line Active");
 }
 ```
 
-### Input Processing and Deadzone Management
+### Sensor Data Reading & Processing
 
-This section reads live data from the joysticks and buttons, clearing out any minor hardware jitters using custom deadzones. If a joystick is pushed past these thresholds, the code automatically scales the raw signal into a clean control range from -60 to 60.
+This part continuously reads raw acceleration data, removes calibrated offsets, maps it to a workable range, and applies a smoothing filter.
+```c++
+void loop() {
+  // --- 1. READ MPU6050 GYRO/ACCEL VALUES ---
+  Wire.beginTransmission(MPU_addr);
+  Wire.write(0x3B);  
+  Wire.endTransmission(false);
+  Wire.requestFrom(MPU_addr, 6, true); 
+  
+  AcX = Wire.read() << 8 | Wire.read();
+  AcY = Wire.read() << 8 | Wire.read();
+  AcZ = Wire.read() << 8 | Wire.read();
+
+  // Subtract startup offsets
+  int calX = AcX - offsetX;
+  int calY = AcY - offsetY;
+  int calZ = AcZ - offsetZ;
+
+  // Map values (-500 to +500)
+  int rawX = constrain(map(calX, -16384, 16384, -500, 500), -500, 500);
+  int rawY = constrain(map(calY, -16384, 16384, -500, 500), -500, 500);
+  int rawZ = constrain(map(calZ - 16384, -16384, 16384, -500, 500), -500, 500);
+
+  // Apply Exponential Smoothing
+  float alpha = 0.2; 
+  smoothX = (alpha * rawX) + ((1.0 - alpha) * smoothX);
+  smoothY = (alpha * rawY) + ((1.0 - alpha) * smoothY);
+  smoothZ = (alpha * rawZ) + ((1.0 - alpha) * smoothZ);
+
+  // Shift values up by adding 5000 to the current total
+  int shiftedX = (int)smoothX + 5000;
+  int shiftedY = (int)smoothY + 5000;
+  int shiftedZ = (int)smoothZ + 5000;
+```
+
+### Section 4: Input Reading (Buttons & Joystick)
+
+This section reads the states of all manual input controls.
 
 ```c++
-// Read raw inputs from both joysticks (0 to 1023)
-  int raw1X = analogRead(pinJoy1X);
-  int raw1Y = analogRead(pinJoy1Y);
-  int raw2X = analogRead(pinJoy2X);
-  int raw2Y = analogRead(pinJoy2Y);
+// --- 2. READ BUTTONS & JOYSTICK ---
+  bool btn8  = (digitalRead(PIN_BTN8) == LOW);
+  bool btn9  = (digitalRead(PIN_BTN9) == LOW);
+  bool btn10 = (digitalRead(PIN_BTN10) == LOW);
+  bool btn11 = (digitalRead(PIN_BTN11) == LOW);
+  bool btn12 = (digitalRead(PIN_BTN12) == LOW);
+  bool btn13 = (digitalRead(PIN_BTN13) == LOW);
 
-  // Read button states (1 = Pressed, 0 = Released)
-  int btnUpState = digitalRead(pinBtnUp);
-  int btnDownState = digitalRead(pinBtnDown);
+  int vrx  = (analogRead(PIN_VRX) - 512) * -1; 
+  int vry  = (analogRead(PIN_VRY) - 512);
 
-  // Variables to hold final movement speeds
-  int moveY  = 0;
-  int strafe = 0;
-  int yaw    = 0;
-  int pitch  = 0;
-  int lift   = 0; 
+  int m3 = STOP_VAL;
+  int m4 = STOP_VAL;
+  int m5 = STOP_VAL;
+```
 
-  // --- BUTTON LIFT SPEED CONTROL ---
-  // Raised speed to 60 for strong, fast vertical movement
-  if (btnUpState == HIGH) {
-    lift = 60;  
-  } 
-  else if (btnDownState == HIGH) {
-    lift = -60; 
+### Section 5: Control & Motor Logic
+
+This section resolves inputs to decide motor speeds and directions. Buttons take priority over joystick inputs.
+```c++
+// --- 3. MOTOR LOGIC ---
+  // Button controls (Individual motor manual overrides)
+  if (btn8 && !btn9) {
+    m4 = SPEED_VAL;       
+  }
+  else if (btn9 && !btn8) {
+    m4 = 180 - SPEED_VAL; 
   }
 
-  // --- WIDER HARD DEADZONES ---
-  // Raised mapping max to 60 so your joysticks have strong power too
-  if (raw1Y >= 640) moveY = map(raw1Y, 640, 1023, 0, 60);
-  else if (raw1Y <= 560) moveY = map(raw1Y, 0, 560, -60, 0);
+  if (btn10 && !btn11) {
+    m5 = SPEED_VAL;       
+  }
+  else if (btn11 && !btn10) {
+    m5 = 180 - SPEED_VAL; 
+  }
 
-  if (raw1X >= 650) strafe = map(raw1X, 650, 1023, 0, 60);
-  else if (raw1X <= 570) strafe = map(raw1X, 0, 570, -60, 0);
+  if (btn12 && !btn13) {
+    m3 = SPEED_VAL;       
+  }
+  else if (btn13 && !btn12) {
+    m3 = 180 - SPEED_VAL; 
+  }
 
-  if (raw2Y >= 640) pitch = map(raw2Y, 640, 1023, 0, 60);
-  else if (raw2Y <= 560) pitch = map(raw2Y, 0, 560, -60, 0);
+  bool anyButtonPressed = (btn8 || btn9 || btn10 || btn11 || btn12 || btn13);
 
-  if (raw2X >= 650) yaw = map(raw2X, 650, 1023, 0, 60);
-  else if (raw2X <= 570) yaw = map(raw2X, 0, 570, -60, 0);
+  // Joystick control (Vector movement when no buttons are held)
+  if (!anyButtonPressed) {
+    if (vrx < -DEADZONE) {
+      m3 = SPEED_VAL;      
+      m4 = 180 - SPEED_VAL;
+      m5 = SPEED_VAL;      
+    }
+    else if (vrx > DEADZONE) {
+      m3 = 180 - SPEED_VAL;
+      m4 = SPEED_VAL;      
+      m5 = 180 - SPEED_VAL;
+    }
+    else if (abs(vry) > DEADZONE) {
+      if (vry < -DEADZONE) {
+        m4 = SPEED_VAL;
+        m5 = 180 - SPEED_VAL;
+        m3 = SPEED_VAL;
+      } else {
+        m4 = 180 - SPEED_VAL;
+        m5 = SPEED_VAL;
+        m3 = 180 - SPEED_VAL;
+      }
+    }
+  }
+
+  // Write finalized calculated values to hardware physical servos
+  servo3.write(m3);
+  servo4.write(m4);
+  servo5.write(m5);
 ```
 
-### System Initialization and Pin Mapping
+### Section 6: Telemetry Output & Loop Delay
 
-This math engine blends your desired flight movements (pitch, roll, yaw, lift) into specific directions for each corner of the chassis. It also applies a safety restriction to ensure the calculated values never exceed your motors' physical limits.
+Formats system data into a clean, single-line telemetry string and outputs it to the Serial Monitor.
+
 ```c++
-// --- THE FLIGHT MIXER MATH ---
-  int s1 = 90 + moveY + strafe + pitch + yaw + lift; // Front-Left
-  int s2 = 90 + moveY - strafe + pitch - yaw + lift; // Front-Right
-  int s3 = 90 + moveY + strafe - pitch - yaw + lift; // Back-Left
-  int s4 = 90 + moveY - strafe - pitch + yaw + lift; // Back-Right
-
-  // Constrain to safe servo limits (0 to 180)
-  s1 = constrain(s1, 0, 180);
-  s2 = constrain(s2, 0, 180);
-  s3 = constrain(s3, 0, 180);
-  s4 = constrain(s4, 0, 180);
-```
-
-### Motor Execution and Diagnostic Telemetry
-
-This final section outputs all raw inputs and motor speeds to your computer screen for real-time troubleshooting. It then writes the final commands directly to the physical servos using micro-delays to keep the system stable.
-```c++
-// --- DISPLAY RAW VALUES AND SERVO OUTPUTS ---
-  Serial.print("J1X:"); Serial.print(raw1X); Serial.print(" ");
-  Serial.print("J1Y:"); Serial.print(raw1Y); Serial.print(" ");
-  Serial.print("J2X:"); Serial.print(raw2X); Serial.print(" ");
-  Serial.print("J2Y:"); Serial.print(raw2Y); Serial.print(" ");
-  Serial.print("U:"); Serial.print(btnUpState); Serial.print(" ");
-  Serial.print("D:"); Serial.print(btnDownState); Serial.print(" | ");
+// --- 4. CONTINUOUS TIGHT STREAM WITHOUT EXTRA SPACING LINES ---
+  char buffer[64];
   
-  Serial.print("M1:"); Serial.print(s1); Serial.print(" ");
-  Serial.print("M2:"); Serial.print(s2); Serial.print(" ");
-  Serial.print("M3:"); Serial.print(s3); Serial.print(" ");
-  Serial.print("M4:"); Serial.println(s4);
+  // Fixed-width formatting with 5-digit slots to prevent text layout shifting side-to-side
+  sprintf(buffer, "X:%5d Y:%5d Z:%5d  ||  M3:%3d M4:%3d M5:%3d", 
+          shiftedX, shiftedY, shiftedZ, m3, m4, m5);
+          
+  Serial.println(buffer);
 
-  // Write commands to the continuous rotation servos
-  motor1.write(s1);
-  delay(2);
-  motor2.write(s2);
-  delay(2);
-  motor3.write(s3);
-  delay(2);
-  motor4.write(s4);
-
-  delay(40);
+  delay(10);
+}
 ```
 
 <br>
