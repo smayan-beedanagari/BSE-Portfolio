@@ -5,7 +5,7 @@ This project integrates an Arduino microcontroller, two sepereate 2-axis joystic
 |:--:|:--:|:--:|:--:|
 | Smayan Beedanagari | Dougherty Valley High School | Aerospace Engineering | Incoming Sophmore
 
-![Headstone Image](Smayan.png)
+![Headshot](Smayan.png)
 
 <br>
 
