@@ -9,13 +9,26 @@ This project integrates an Arduino microcontroller, two sepereate 2-axis joystic
 
 <br>
 
-# Key Takeaways
+# Third Milestone
 
-For your final milestone, explain the outcome of your project. Key details to include are
-- What you've accomplished since your previous milestone
-- What your biggest challenges and triumphs were at BSE
-- A summary of key topics you learned about
-- What you hope to learn in the future after everything you've learned at BSE
+<iframe width="560" height="315" src="https://www.youtube.com/embed/TGuS3Kq9ppw?si=J4U4_iM2vDg7UaVS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+### Project Overview
+This final phase focuses on the gyroscope that trakcs he x, y, and. coordinates within the system as well as calculate the pitch, yaw and rotation, and then displaying that information on the arduino uno serial monitor. This allows for the user to debug and track exactly where the spacecraft is located within the box
+
+### Technical Progress
+The 3-string suspension rig now includes the gyroscope and also includes the very precise position of where the spacecraft is located at. I fine tuned the coordinte tracjing simulation to figure out within a few millimeters of where the spacecraft is located at. 
+
+### Takeaways
+The biggest takeaway I had from Bluestamp was learning exactly how a engineer is able to complete their project while also tracking their project with detail. Another big thing i leaned from BSE is how a engineer is able to use the engineering process to debug and finish a project.
+
+
+### Next Steps
+
+  -**Bluetooth Module:** Use a bluetooth module instead of the wiring sstem i have currently which would allow for me to connect from anywhere in the clasroom
+
+<br>
+
 
 <br>
 
@@ -24,23 +37,20 @@ For your final milestone, explain the outcome of your project. Key details to in
 <iframe width="560" height="315" src="https://www.youtube.com/embed/uG7d_T7f3lo?si=XROaKxHfgMTZGOT8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ### Project Overview
-This phase focuses on the complete physical assembly and full multi-axis integration of the flight simulator. The suspended cockpit is hung from the PVC frame using the 4-string suspension rig, while the software expands to handle 6-DOF (degree of freedom) flight dynamics. Adding a second joystick and dedicated altitude buttons enables full physical tilt, pitch, roll, and vertical lift across the X, Y, and Z axes.
+This phase focuses on the complete physical assembly and wiring of the controller. It includes 6 buttons and 2 joysticks which help maneuver the spacecraftar ound the box. Joysticks are used for basic x, y, and z movement, and he buttons allow fr pitches up, down, and yaw left and right giving access to 6 DOF, however in real world application due to the servos and arduinos limited processing power yaw is not achievable and pitch is very limited with 3 motors
 
 ### Technical Progress
-The 4-string suspension rig is fully assembled, and the cockpit chassis is successfully suspended within the PVC frame. The control system has been upgraded to include the second joystick and altitude buttons. Lines are routed from the continuous servos to the central rig, and the software flight mixer now calculates outputs for combined 3D motion and elevation control.
+The 3-string suspension rig is fully assembled, and the cockpit chassis is successfully suspended within the PVC frame. The control system has been upgraded to include the second joystick and motor control buttons. Lines are routed from the continuous servos to the central rig, and the software flight mixer now calculates outputs for combined 3D motion and elevation control.
 
 ### Challenges & Solutions
-  -**Multi-Axis Mixing:** Combining pitch, roll, yaw, and vertical lift into single motor commands caused servos to hit software limits.
-
-  -**Range Constraining:** I'm solving this by widening the deadzones and smoothing out the motor acceleration profiles in the code.
 
   -**Line Sag & Calibration:** Uneven weight distribution on the PVC frame can cause unwanted twisting, which I'll fix by adding physical counterweights.
 
 ### Next Steps
-  -**System Testing:**  ine-tune the PVC counterweights to ensure the cockpit centers automatically when joysticks are released.
+  -**System Testing:**  Fine-tune the PVC counterweights to ensure the cockpit centers automatically when joysticks are released.
 
 
-  -**Final Mechanical Calibration::** Assemble the 4-string suspension rig and hang the cockpit chassis to complete the project
+  -**Final Mechanical Calibration:** Assemble the 3-string suspension rig and hang the cockpit chassis to complete the project
 
 <br>
 
