@@ -104,6 +104,10 @@ Now that the arcade console is complete, I'm moving on to my intensive project: 
 
 <br>
 
+### Schematics
+
+
+
 # Code
 
 This Arduino program runs a 3-motor flight simulator rig by mixing joystick and button inputs. It filters out hardware jitters using custom deadzones, combines your movements (pitch, roll, yaw, and lift) mathematically, and outputs the final speeds to four continuous servos.
