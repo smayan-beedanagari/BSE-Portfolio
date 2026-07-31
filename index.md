@@ -19,9 +19,9 @@ For your final milestone, explain the outcome of your project. Key details to in
 
 <br>
 
-# Second + Third Milestones
+# Second Milestone
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/y3VAmNlER5Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/uG7d_T7f3lo?si=XROaKxHfgMTZGOT8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ### Project Overview
 This phase focuses on the complete physical assembly and full multi-axis integration of the flight simulator. The suspended cockpit is hung from the PVC frame using the 4-string suspension rig, while the software expands to handle 6-DOF (degree of freedom) flight dynamics. Adding a second joystick and dedicated altitude buttons enables full physical tilt, pitch, roll, and vertical lift across the X, Y, and Z axes.
