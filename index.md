@@ -104,7 +104,9 @@ Now that the arcade console is complete, I'm moving on to my intensive project: 
 
 <br>
 
-### Schematics
+### Schematic
+![Headshot](Schematic.png)
+
 
 
 
